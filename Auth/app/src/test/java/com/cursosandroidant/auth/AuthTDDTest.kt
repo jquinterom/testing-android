@@ -80,6 +80,7 @@ class AuthTDDTest {
             }
         }
     }
+    // endregion
 
     @Ignore("Falta definir un requisito del cliente")
     @Test
@@ -87,5 +88,4 @@ class AuthTDDTest {
         val isAuthenticated = userAuthenticationTDD("ant@gmail.com", "12345")
         assertEquals(AuthEvent.PASSWORD_INVALID_LENGTH, isAuthenticated)
     }
-    // endregion
 }
