@@ -9,9 +9,7 @@ import org.hamcrest.Matchers.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.annotation.Config
 
-@Config(sdk = [30])
 @RunWith(AndroidJUnit4::class)
 class AddViewModelTest {
     @get:Rule
