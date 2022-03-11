@@ -64,4 +64,10 @@ dependencies {
 
     //coroutines test
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2'
+
+    // Mock web server
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
+
+    // Mockito
+    testImplementation "org.mockito:mockito-core:4.4.0"
 }
