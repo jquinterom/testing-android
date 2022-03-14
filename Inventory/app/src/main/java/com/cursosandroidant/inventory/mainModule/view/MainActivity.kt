@@ -2,6 +2,8 @@ package com.cursosandroidant.inventory.mainModule.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.cursosandroidant.inventory.R
@@ -52,15 +54,19 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     private fun setupViewModel(){
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        viewModel.getProducts().observe(this, { products ->
+        viewModel.getProducts().observe(this) { products ->
             setListToAdapter(products)
-        })
-        viewModel.isWelcome().observe(this, { isWelcome ->
-            if (isWelcome){
-                Snackbar.make(binding.root, getString(R.string.main_msg_welcome), Snackbar.LENGTH_SHORT).show()
+        }
+        viewModel.isWelcome().observe(this) { isWelcome ->
+            if (isWelcome) {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.main_msg_welcome),
+                    Snackbar.LENGTH_SHORT
+                ).show()
                 viewModel.setWelcome(false)
             }
-        })
+        }
     }
 
     private fun setListToAdapter(products: List<Product>) {
@@ -78,5 +84,21 @@ class MainActivity : AppCompatActivity(), OnClickListener {
 
     override fun onLongClick(product: Product) {
         viewModel.deleteProduct(product)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val msg = when(item.itemId){
+            R.id.action_history -> getString(R.string.main_msg_go_history)
+            R.id.action_exit -> getString(R.string.main_msg_go_exit)
+            else -> getString(R.string.main_msg_not_found)
+        }
+
+        Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT).show()
+        return super.onOptionsItemSelected(item)
     }
 }
